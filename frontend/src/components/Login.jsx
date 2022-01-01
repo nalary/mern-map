@@ -17,7 +17,7 @@ export default function Register({ setShowLogin, myStorage, setCurrentUser }) {
 
         try {
             const res = await axios.post("/users/login", user);
-            myStorage.setItem("user", res.data.username);
+            myStorage.setItem("pinUser", res.data.username);
             setCurrentUser(res.data.username);
             setShowLogin(false);
             setFailure(false);

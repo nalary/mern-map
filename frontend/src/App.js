@@ -10,7 +10,7 @@ import Login from './components/Login';
 
 function App() {
   const myStorage = window.localStorage;
-  const [currentUser, setCurrentUser] = useState(myStorage.getItem("user"));
+  const [currentUser, setCurrentUser] = useState(myStorage.getItem("pinUser"));
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
@@ -75,7 +75,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    myStorage.removeItem("user");
+    myStorage.removeItem("pinUser");
     setCurrentUser(null);
   };
 
