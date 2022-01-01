@@ -1,12 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { Room, Star } from '@material-ui/icons';
 import "./app.css";
 import { format } from 'timeago.js';
 import Register from './components/Register';
 import Login from './components/Login';
 import { axiosInstance } from './config';
+import mapboxgl from 'mapbox-gl';
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+mapboxgl.workerClass = require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 function App() {
   const myStorage = window.localStorage;
