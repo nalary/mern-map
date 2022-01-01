@@ -226,8 +226,8 @@ function App() {
           <button className="button logout" onClick={handleLogout}>Logout</button>
         ) : (
           <div className="buttons">
-            <button className="button login" onClick={() => setShowLogin(true)}>Login</button>
-            <button className="button register" onClick={() => setShowRegister(true)}>Register</button>
+            <button className="button login" onClick={() => {setShowLogin(true); setShowRegister(false)}}>Login</button>
+            <button className="button register" onClick={() => {setShowRegister(true); setShowLogin(false)}}>Register</button>
           </div>
         )}
         {showRegister && <Register setShowRegister={setShowRegister}/>}
