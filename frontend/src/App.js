@@ -18,11 +18,12 @@ function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [updateMode, setUpdateMode] = useState(false);
   const [editEnd, setEditEnd] = useState(false);
-  const [viewport, setViewport] = useState({    
-    latitude: 13.736717,
-    longitude: 100.523186,
-    zoom: 5
+  const [viewport, setViewport] = useState(JSON.parse(myStorage.getItem("lastViewport")) || {
+    latitude: 13,
+    longitude: 100,
+    zoom: 10
   });
+
   const titleRef = useRef();
   const descRef = useRef();
   const ratingRef = useRef();
@@ -44,6 +45,13 @@ function App() {
   const handleMarkerClick = (id, latitude, longitude) => {
     setCurrentPlaceId(id);
     setViewport({ ...viewport, latitude: latitude, longitude: longitude });
+    myStorage.setItem("lastViewport", JSON.stringify(
+      {
+        latitude: viewport.latitude,
+        longitude: viewport.longitude,
+        zoom: viewport.zoom
+      })
+    );
   };
 
   const handleAddClick = (e) => {
@@ -77,6 +85,16 @@ function App() {
   const handleLogout = () => {
     myStorage.removeItem("pinUser");
     setCurrentUser(null);
+  };
+
+  const handleLoginButton = () => {
+    setShowLogin(true); 
+    setShowRegister(false)
+  };
+
+  const handleRegisterButton = () => {
+    setShowRegister(true); 
+    setShowLogin(false)
   };
 
   const handleDelete = async (pinId) => {
@@ -226,8 +244,8 @@ function App() {
           <button className="button logout" onClick={handleLogout}>Logout</button>
         ) : (
           <div className="buttons">
-            <button className="button login" onClick={() => {setShowLogin(true); setShowRegister(false)}}>Login</button>
-            <button className="button register" onClick={() => {setShowRegister(true); setShowLogin(false)}}>Register</button>
+            <button className="button login" onClick={handleLoginButton}>Login</button>
+            <button className="button register" onClick={handleRegisterButton}>Register</button>
           </div>
         )}
         {showRegister && <Register setShowRegister={setShowRegister}/>}

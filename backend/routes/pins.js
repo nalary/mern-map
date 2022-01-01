@@ -67,4 +67,14 @@ router.get("/", async (req, res) => {
     }
 });
 
+// get last pin
+router.get("/lastPin", async (req, res) => {
+    try {
+        const pin = await Pin.find().sort({ $natural: -1 }).limit(1);
+        res.status(200).json(pin);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
+
 module.exports = router;
